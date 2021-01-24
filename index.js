@@ -1,22 +1,44 @@
-/* Your Code Here */
+ function createEmployeeRecord(src) {
+   let employee = {};
+   employee.firstName = src[0];
+   employee.familyName = src[1];
+   employee.title = src[2];
+   employee.payPerHour = src[3];
+   employee.timeInEvents = [];
+   employee.timeOutEvents = [];
+   return employee;
+ }
 
-/*
- We're giving you this function. Take a look at it, you might see some usage
- that's new and different. That's because we're avoiding a well-known, but
- sneaky bug that we'll cover in the next few lessons!
+function createEmployeeRecords(src) {
+  let employees = src.map(createEmployeeRecord);
+  return employees;
+}
 
- As a result, the lessons for this function will pass *and* it will be available
- for you to use if you need it!
- */
+function createTimeInEvent(timeEvent) {
+  let timeEventArray = timeEvent.split(" ");
+  let date = timeEventArray[0];
+  let hour = parseInt(timeEventArray[1]);
+  this.timeInEvents.push({date: date, hour: hour, type: "TimeIn"});
+  return this;
+}
 
-let allWagesFor = function () {
-    let eligibleDates = this.timeInEvents.map(function (e) {
-        return e.date
-    })
+function createTimeOutEvent(timeEvent) {
+  let timeEventArray = timeEvent.split(" ");
+  let date = timeEventArray[0];
+  let hour = parseInt(timeEventArray[1]);
+  this.timeOutEvents.push({date: date, hour: hour, type: "TimeOut"});
+  return this;
+}
 
-    let payable = eligibleDates.reduce(function (memo, d) {
-        return memo + wagesEarnedOnDate.call(this, d)
-    }.bind(this), 0) // <== Hm, why did we need to add bind() there? We'll discuss soon!
+function hoursWorkedOnDate(date) {
+  let findHour = function(date) {if (date === this.timeInEEvents.date) {return this;}}
+  let timeIn = this.timeInEvents.find(findHour).hour;
+  let timeOut = this.timeOutEvents.find(findHour).hour;
+  let hoursWorked = timeOut - timeIn;
+  return hoursWorked;
+}
 
-    return payable
+function wagesEarnedOnDate(date) {
+  let wagesEarned = this.payPerHour*hoursWorkedOnDate(date);
+  return wagesEarned;
 }
